@@ -6,6 +6,7 @@ import ru.xpendence.persons.entity.User;
 import ru.xpendence.persons.mapper.UserMapper;
 import ru.xpendence.persons.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,12 +40,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto get(Long id) {
-        return mapper.toDto(repository.getOne(id));
+        return mapper.toDto(repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Пользователь с id " + id + " не найден.")));
     }
 
     @Override
     public User getEntity(Long id) {
-        return repository.getOne(id);
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Пользователь с id " + id + " не найден."));
     }
 
     @Override

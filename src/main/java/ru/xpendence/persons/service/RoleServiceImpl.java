@@ -6,6 +6,7 @@ import ru.xpendence.persons.entity.Role;
 import ru.xpendence.persons.mapper.RoleMapper;
 import ru.xpendence.persons.repository.RoleRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,12 +30,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDto get(Long id) {
-        return mapper.toDto(repository.getOne(id));
+        return mapper.toDto(repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Роль с id " + id + " не найдена.")));
     }
 
     @Override
     public Role getEntity(Long id) {
-        return repository.getOne(id);
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Роль с id " + id + " не найдена."));
     }
 
     @Override

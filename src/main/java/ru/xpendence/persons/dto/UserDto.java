@@ -24,7 +24,8 @@ public class UserDto extends AbstractDto {
     private String patronymic;
     private String email;
     private String phone;
-    private List<String> roles;
+    private List<RoleDto> roles;
+    private List<Long> roleIds;
 
     public UserDto(Long id,
                    String name,
@@ -32,7 +33,7 @@ public class UserDto extends AbstractDto {
                    String patronymic,
                    String email,
                    String phone,
-                   List<String> roles) {
+                   List<RoleDto> roles) {
         super(id);
         this.name = name;
         this.surname = surname;

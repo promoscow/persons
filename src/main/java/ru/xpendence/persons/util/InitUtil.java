@@ -42,12 +42,12 @@ public class InitUtil {
                 new User("Киса", "Воробьянинов", "Викентьевич", "kisa-kisa@mail.ru", "89101298353", Lists.newArrayList(roles.get(2))),
                 new User("Мадам", "Грицацуева", "Мадамовна", "madam-gric@ya.ru", "89157898764", Lists.newArrayList(roles.get(1  ))),
                 new User("Отец", "Фёдор", "Петухов", "otec-batko@mail.ru", "89676560908", Lists.newArrayList(roles.get(0))),
-                new User("Авессалом", "Изнурёнков", "Петрович", "poker@mail.ru", "89450908746", Lists.newArrayList(roles.get(3))),
+                new User("Авессалом", "Изнурёнков", "Петрович", "poker@mail.ru", "89450908746", Lists.newArrayList(roles.get(4))),
                 new User("Архивариус", "Коробейников", "Максимович", "archives@mail.ru", "89784545378", Lists.newArrayList(roles.get(2))),
                 new User("Эллочка", "Людоедка", "Элитовна", "elite@mail.ru", "89569897653", Lists.newArrayList(roles.get(1))),
                 new User("Осип", "Брезенчук", "Игнатьевич", "brezenchuk@mail.ru", "89089897657", Lists.newArrayList(roles.get(0))),
                 new User("Илья", "Щукин", "Ильич", "engineer@mail.ru", "89896765653", Lists.newArrayList(roles.get(3))),
-                new User("Глафира", "Петухова", "Аскольдовна", "12stulyev@mail.ru", "89787834323", Lists.newArrayList(roles.get(2)))
+                new User("Глафира", "Петухова", "Аскольдовна", "12stulyev@mail.ru", "89787834323", Lists.newArrayList(roles.get(4)))
         );
     }
 
@@ -56,7 +56,8 @@ public class InitUtil {
                 new Role("Зауральский Орк"),
                 new Role("Йоркширский Хоббит"),
                 new Role("Подмосковный гоблин"),
-                new Role("Питерский эльф")
+                new Role("Питерский эльф"),
+                new Role("Одесский чорт")
         );
     }
 }

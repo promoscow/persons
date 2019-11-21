@@ -21,9 +21,11 @@ import java.util.stream.Collectors;
 public class UserMapper implements AbstractMapper<User, UserDto> {
 
     private final RoleRepository roleRepository;
+    private final RoleMapper roleMapper;
 
-    public UserMapper(RoleRepository roleRepository) {
+    public UserMapper(RoleRepository roleRepository, RoleMapper roleMapper) {
         this.roleRepository = roleRepository;
+        this.roleMapper = roleMapper;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class UserMapper implements AbstractMapper<User, UserDto> {
                 dto.getPatronymic(),
                 dto.getEmail(),
                 dto.getPhone(),
-                getRoles(dto.getRoles())
+                getRolesByIds(dto.getRoleIds())
         );
     }
 
@@ -46,7 +48,7 @@ public class UserMapper implements AbstractMapper<User, UserDto> {
         ifNotNull(dto.getPatronymic(), user::setPatronymic);
         ifNotNull(dto.getEmail(), user::setEmail);
         ifNotNull(dto.getPhone(), user::setPhone);
-        user.setRoles(getRoles(dto.getRoles()));
+        user.setRoles(getRolesByIds(dto.getRoleIds()));
         return user;
     }
 
@@ -59,12 +61,12 @@ public class UserMapper implements AbstractMapper<User, UserDto> {
                 entity.getPatronymic(),
                 entity.getEmail(),
                 entity.getPhone(),
-                entity.getRoles().stream().map(Role::getRole).collect(Collectors.toList())
+                entity.getRoles().stream().map(roleMapper::toDto).collect(Collectors.toList())
         );
     }
 
-    private List<Role> getRoles(List<String> roles) {
-        return roleRepository.findAllByRoleIn(roles);
+    private List<Role> getRolesByIds(List<Long> roles) {
+        return roleRepository.findAllByIdIn(roles);
     }
 
     private <T> void ifNotNull(T o, Consumer<T> c) {

@@ -25,7 +25,7 @@ public class RoleMapper implements AbstractMapper<Role, RoleDto> {
 
     @Override
     public Role toEntity(RoleDto dto) {
-        return new Role(dto.getId(), dto.getRole(), repository.getOne(dto.getId()).getUsers());
+        return new Role(dto.getRole());
     }
 
     @Override

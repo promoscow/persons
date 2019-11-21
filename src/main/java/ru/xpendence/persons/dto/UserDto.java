@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class UserDto extends AbstractDto {
     private String patronymic;
     private String email;
     private String phone;
+
+    @Null
     private List<RoleDto> roles;
     private List<Long> roleIds;
 

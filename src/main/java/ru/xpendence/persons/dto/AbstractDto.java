@@ -3,7 +3,10 @@ package ru.xpendence.persons.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.xpendence.persons.dto.validation.Validation;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 
 /**
@@ -17,5 +20,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public abstract class AbstractDto implements Serializable {
 
+    @Null(groups = Validation.Create.class)
+    @NotNull(groups = Validation.Update.class)
     private Long id;
 }

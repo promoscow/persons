@@ -1,8 +1,10 @@
 package ru.xpendence.persons.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.xpendence.persons.dto.UserDto;
+import ru.xpendence.persons.dto.validation.Validation;
 import ru.xpendence.persons.service.UserService;
 
 import java.util.List;
@@ -24,12 +26,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> save(@RequestBody UserDto dto) {
+    public ResponseEntity<UserDto> save(@Validated({Validation.Create.class}) @RequestBody UserDto dto) {
         return ResponseEntity.ok(service.save(dto));
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> update(@RequestBody UserDto dto) {
+    public ResponseEntity<UserDto> update(@Validated({Validation.Update.class}) @RequestBody UserDto dto) {
         return ResponseEntity.ok(service.update(dto));
     }
 

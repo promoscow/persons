@@ -1,7 +1,6 @@
 package ru.xpendence.persons.util;
 
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import ru.xpendence.persons.entity.Role;
@@ -11,7 +10,6 @@ import ru.xpendence.persons.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Author: Vyacheslav Chernyshov
@@ -35,7 +33,7 @@ public class InitUtil {
     @PostConstruct
     private void init() {
         List<Role> roles = roleRepository.saveAll(createRoles());
-        List<User> users = userRepository.saveAll(createUsers(roles));
+        userRepository.saveAll(createUsers(roles));
     }
 
     private List<User> createUsers(List<Role> roles) {

@@ -35,7 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto dto) {
-        return mapper.toDto(repository.save(mapper.toEntity(dto)));
+        User user = repository.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Пользователь с id " + dto.getId() + " не найден."));
+        return mapper.toDto(repository.save(mapper.toEntity(dto, user)));
     }
 
     @Override

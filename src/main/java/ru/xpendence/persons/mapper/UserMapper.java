@@ -1,18 +1,15 @@
 package ru.xpendence.persons.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.xpendence.persons.dto.AbstractDto;
 import ru.xpendence.persons.dto.UserDto;
-import ru.xpendence.persons.entity.AbstractEntity;
 import ru.xpendence.persons.entity.Role;
 import ru.xpendence.persons.entity.User;
 import ru.xpendence.persons.repository.RoleRepository;
 import ru.xpendence.persons.repository.UserRepository;
-import ru.xpendence.persons.service.RoleService;
-import ru.xpendence.persons.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -45,6 +42,16 @@ public class UserMapper implements AbstractMapper<User, UserDto> {
         );
     }
 
+    public User toEntity(UserDto dto, User user) {
+        ifNotNull(dto.getName(), user::setName);
+        ifNotNull(dto.getSurname(), user::setSurname);
+        ifNotNull(dto.getPatronymic(), user::setPatronymic);
+        ifNotNull(dto.getEmail(), user::setEmail);
+        ifNotNull(dto.getPhone(), user::setPhone);
+        user.setRoles(getRoles(dto.getRoles()));
+        return user;
+    }
+
     @Override
     public UserDto toDto(User entity) {
         return new UserDto(
@@ -60,5 +67,11 @@ public class UserMapper implements AbstractMapper<User, UserDto> {
 
     private List<Role> getRoles(List<String> roles) {
         return roleRepository.findAllByRoleIn(roles);
+    }
+
+    private <T> void ifNotNull(T o, Consumer<T> c) {
+        if (Objects.nonNull(o)) {
+            c.accept(o);
+        }
     }
 }

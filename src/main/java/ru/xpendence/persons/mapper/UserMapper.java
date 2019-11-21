@@ -5,7 +5,6 @@ import ru.xpendence.persons.dto.UserDto;
 import ru.xpendence.persons.entity.Role;
 import ru.xpendence.persons.entity.User;
 import ru.xpendence.persons.repository.RoleRepository;
-import ru.xpendence.persons.repository.UserRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,11 +20,9 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper implements AbstractMapper<User, UserDto> {
 
-    private final UserRepository repository;
     private final RoleRepository roleRepository;
 
-    public UserMapper(UserRepository repository, RoleRepository roleRepository) {
-        this.repository = repository;
+    public UserMapper(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -42,6 +39,7 @@ public class UserMapper implements AbstractMapper<User, UserDto> {
         );
     }
 
+    @Override
     public User toEntity(UserDto dto, User user) {
         ifNotNull(dto.getName(), user::setName);
         ifNotNull(dto.getSurname(), user::setSurname);

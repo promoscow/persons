@@ -1,5 +1,6 @@
 package ru.xpendence.persons.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,21 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class AbstractDto implements Serializable {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class AbstractDto implements Serializable {
 
     @Null(groups = Validation.Create.class)
     @NotNull(groups = Validation.Update.class)
     private Long id;
+
+    @Null
+    private String errorMessage;
+
+    AbstractDto(Long id) {
+        this.id = id;
+    }
+
+    public AbstractDto(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 }

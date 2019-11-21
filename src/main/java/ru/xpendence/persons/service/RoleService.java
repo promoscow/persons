@@ -1,6 +1,5 @@
 package ru.xpendence.persons.service;
 
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.xpendence.persons.dto.RoleDto;
 import ru.xpendence.persons.entity.Role;
@@ -16,6 +15,12 @@ import java.util.List;
 public interface RoleService {
 
     @Transactional
+    RoleDto save(RoleDto dto);
+
+    @Transactional
+    RoleDto update(RoleDto dto);
+
+    @Transactional
     RoleDto get(Long id);
 
     @Transactional
@@ -23,4 +28,6 @@ public interface RoleService {
 
     @Transactional
     List<RoleDto> getAll();
+
+    Boolean delete(Long id);
 }

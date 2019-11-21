@@ -29,6 +29,18 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public RoleDto save(RoleDto dto) {
+        return mapper.toDto(repository.save(mapper.toEntity(dto)));
+    }
+
+    @Override
+    public RoleDto update(RoleDto dto) {
+        Role role = repository.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Пользователь с id " + dto.getId() + " не найден."));
+        return mapper.toDto(repository.save(mapper.toEntity(dto, role)));
+    }
+
+    @Override
     public RoleDto get(Long id) {
         return mapper.toDto(repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Роль с id " + id + " не найдена.")));
@@ -43,5 +55,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleDto> getAll() {
         return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean delete(Long id) {
+        repository.deleteById(id);
+        return !repository.findById(id).isPresent();
     }
 }
